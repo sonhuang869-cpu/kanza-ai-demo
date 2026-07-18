@@ -1,173 +1,237 @@
 import Link from 'next/link';
-import { mockStats, mockPlatforms, mockContentIdeas, mockScheduledPosts } from '@/lib/mock-data';
-import { TrendingUp, Sparkles, Calendar, Users, ArrowUpRight, Clock } from 'lucide-react';
+import Image from 'next/image';
+import { mockContentIdeas, mockScheduledPosts } from '@/lib/mock-data';
+import { PlatformIconMap } from '@/components/PlatformIcons';
+import { ArrowUpRight, Sparkles, TrendingUp, Zap } from 'lucide-react';
 
 export default function DashboardOverview() {
-  const upcomingPosts = mockScheduledPosts.slice(0, 5);
-  const pendingIdeas = mockContentIdeas.filter(i => i.status === 'pending').slice(0, 4);
+  const upcomingPosts = mockScheduledPosts.slice(0, 4);
+  const pendingIdeas = mockContentIdeas.filter(i => i.status === 'pending').slice(0, 3);
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Good morning, Ameer 👋</h1>
-        <p className="text-slate-500 mt-1">Here&apos;s what&apos;s happening with your content this week.</p>
-      </div>
+    <div className="space-y-16">
+      {/* HEADER — Editorial front page */}
+      <header className="animate-reveal-up opacity-0" style={{animationFillMode: 'forwards'}}>
+        <div className="flex items-center gap-4 mb-8">
+          <span className="section-num">Front Page · 17 July 2026</span>
+          <div className="rule flex-1"></div>
+          <span className="text-eyebrow text-ink-subtle">Wednesday Edition</span>
+        </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard
-          icon={<Sparkles className="w-5 h-5" />}
-          label="AI Ideas Generated"
-          value={mockStats.contentIdeasGenerated.toString()}
-          trend="+23% this week"
-          trendUp
-          color="from-purple-500 to-pink-500"
-        />
-        <StatCard
-          icon={<Calendar className="w-5 h-5" />}
-          label="Posts Scheduled"
-          value={mockStats.scheduledPosts.toString()}
-          trend="Next 7 days"
-          color="from-blue-500 to-cyan-500"
-        />
-        <StatCard
-          icon={<TrendingUp className="w-5 h-5" />}
-          label="Engagement Rate"
-          value={`${mockStats.engagementRate}%`}
-          trend="+12% vs last week"
-          trendUp
-          color="from-emerald-500 to-teal-500"
-        />
-        <StatCard
-          icon={<Users className="w-5 h-5" />}
-          label="Weekly Reach"
-          value={mockStats.weeklyReach}
-          trend={`+${mockStats.audienceGrowth}% growth`}
-          trendUp
-          color="from-orange-500 to-red-500"
-        />
-      </div>
+        <div className="grid grid-cols-12 gap-8 items-end">
+          <div className="col-span-12 lg:col-span-8">
+            <h1 className="text-huge">
+              Good morning,
+              <br />
+              <span className="italic font-light text-terracotta">Ameer.</span>
+            </h1>
+          </div>
+          <div className="col-span-12 lg:col-span-4">
+            <p className="text-lg font-light text-ink-muted leading-relaxed">
+              Fresh from the studio: <span className="font-bold text-ink">89 new ideas</span> waiting for your read. Your audience is up <span className="font-bold text-sage">+18%</span> this week.
+            </p>
+          </div>
+        </div>
+      </header>
 
-      {/* Two-column layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Pending Ideas */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6">
-          <div className="flex items-center justify-between mb-6">
+      <div className="rule-thick"></div>
+
+      {/* MASSIVE STATS — Editorial style */}
+      <section>
+        <div className="grid grid-cols-12 gap-0 border-l border-t border-ink/10">
+          <StatBlock
+            num="01"
+            label="Fresh Ideas This Week"
+            value="89"
+            unit="drafts"
+            trend="+23"
+            delay={0.1}
+          />
+          <StatBlock
+            num="02"
+            label="Ready for Publishing"
+            value="23"
+            unit="scheduled"
+            trend="7 days"
+            delay={0.2}
+          />
+          <StatBlock
+            num="03"
+            label="Engagement Rate"
+            value="8.4"
+            unit="%"
+            trend="+12%"
+            delay={0.3}
+            featured
+          />
+          <StatBlock
+            num="04"
+            label="Weekly Reach"
+            value="156"
+            unit="K"
+            trend="+18%"
+            delay={0.4}
+          />
+        </div>
+      </section>
+
+      {/* THREE COLUMN */}
+      <section className="grid grid-cols-12 gap-8">
+        {/* Left - Fresh drafts */}
+        <div className="col-span-12 lg:col-span-8 animate-reveal-up opacity-0 delay-500" style={{animationFillMode: 'forwards'}}>
+          <div className="flex items-baseline justify-between mb-8">
             <div>
-              <h2 className="text-lg font-semibold">Fresh AI Ideas</h2>
-              <p className="text-sm text-slate-500 mt-0.5">Generated based on your website & recent trends</p>
+              <div className="section-num mb-2">02 · The Draft Board</div>
+              <h2 className="text-4xl font-black tracking-tight">Fresh from the studio.</h2>
             </div>
-            <Link href="/dashboard/content-generator" className="text-sm text-primary-600 font-medium flex items-center gap-1 hover:gap-2 transition-all">
-              View all <ArrowUpRight className="w-4 h-4" />
+            <Link href="/dashboard/content-generator" className="text-eyebrow text-terracotta flex items-center gap-2 hover:gap-3 transition-all">
+              See all 89 <ArrowUpRight className="w-3 h-3" />
             </Link>
           </div>
 
-          <div className="space-y-3">
-            {pendingIdeas.map((idea) => (
-              <div key={idea.id} className="flex items-start gap-4 p-4 rounded-xl border border-slate-100 hover:border-primary-200 hover:bg-primary-50/30 transition">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-100 to-accent-500/20 flex items-center justify-center text-2xl flex-shrink-0">
-                  {idea.image}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{idea.type}</span>
-                    <span className="text-xs text-slate-500">·</span>
-                    <div className="flex items-center gap-1 text-xs text-slate-500">
-                      <Clock className="w-3 h-3" />
-                      {idea.suggestedTime}
-                    </div>
+          <div className="editorial-frame">
+            {pendingIdeas.map((idea, i) => (
+              <div
+                key={idea.id}
+                className={`group grid grid-cols-12 gap-4 p-6 hover:bg-ivory-warm cursor-pointer transition-colors duration-300 ${i !== pendingIdeas.length - 1 ? 'border-b border-ink/10' : ''}`}
+              >
+                <div className="col-span-1 text-eyebrow text-terracotta pt-2">0{i + 1}</div>
+
+                <div className="col-span-2">
+                  <div className="relative aspect-square overflow-hidden">
+                    <Image src={idea.image} alt={idea.title} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" sizes="120px" />
                   </div>
-                  <h3 className="font-semibold text-sm truncate">{idea.title}</h3>
-                  <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">{idea.content}</p>
                 </div>
-                <div className="text-right flex-shrink-0">
-                  <div className="text-lg font-bold text-primary-600">{idea.engagementScore}</div>
-                  <div className="text-[10px] text-slate-500 uppercase tracking-wider">Score</div>
+
+                <div className="col-span-6">
+                  <div className="text-eyebrow text-ink-subtle mb-2">{idea.type} · {idea.suggestedTime}</div>
+                  <h3 className="text-xl font-bold leading-tight mb-2 group-hover:text-terracotta transition-colors">{idea.title}</h3>
+                  <p className="text-sm text-ink-muted font-light leading-relaxed line-clamp-2">{idea.content}</p>
+                </div>
+
+                <div className="col-span-3 text-right">
+                  <div className="text-5xl font-black">{idea.engagementScore}</div>
+                  <div className="text-eyebrow text-ink-subtle mt-1">Engagement Score</div>
+                  <div className="text-xs font-semibold text-ink mt-3">{idea.predictedReach} reach</div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Right column */}
-        <div className="space-y-6">
-          {/* Platform stats */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6">
-            <h2 className="text-lg font-semibold mb-4">Platforms</h2>
-            <div className="space-y-3">
-              {mockPlatforms.map((platform) => (
-                <div key={platform.name} className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${platform.color} flex items-center justify-center text-xl`}>
-                    {platform.icon}
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-medium">{platform.name}</div>
-                    <div className="text-xs text-slate-500">{platform.posts} posts</div>
-                  </div>
-                  <div className="text-sm font-medium text-emerald-600">{platform.growth}</div>
-                </div>
-              ))}
-            </div>
+        {/* Right - Agenda */}
+        <div className="col-span-12 lg:col-span-4 space-y-8 animate-reveal-right opacity-0 delay-600" style={{animationFillMode: 'forwards'}}>
+          <div>
+            <div className="section-num mb-2">03 · Agenda</div>
+            <h2 className="text-4xl font-black tracking-tight">Coming up.</h2>
           </div>
 
-          {/* Upcoming posts */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold">Coming up</h2>
-              <Link href="/dashboard/calendar" className="text-xs text-primary-600 font-medium">
-                Calendar →
-              </Link>
-            </div>
-            <div className="space-y-3">
-              {upcomingPosts.map((post, i) => (
-                <div key={i} className="flex items-center gap-3 pb-3 border-b border-slate-100 last:border-b-0 last:pb-0">
-                  <div className="text-center flex-shrink-0 w-11">
-                    <div className="text-xs text-slate-500">{post.time}</div>
-                    <div className="text-xs font-medium text-slate-700 mt-0.5">
-                      {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+          <div className="editorial-frame divide-y divide-ink/10">
+            {upcomingPosts.map((post, i) => {
+              const Icon = PlatformIconMap[post.platform];
+              return (
+                <div key={i} className="p-5 hover:bg-ivory-warm transition-colors group cursor-pointer">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-baseline gap-3">
+                      <div className="text-2xl font-black">{post.time}</div>
+                      <div>
+                        <div className="flex items-center gap-2 text-terracotta">
+                          <Icon size={12} />
+                          <span className="text-eyebrow">{post.platform}</span>
+                        </div>
+                        <div className="text-sm font-semibold mt-0.5 group-hover:translate-x-1 transition-transform">{post.title}</div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium truncate">{post.title}</div>
-                    <div className="text-xs text-slate-500">{post.platform}</div>
-                  </div>
-                  <div className={`text-[10px] font-medium px-2 py-1 rounded-full ${
-                    post.status === 'scheduled'
-                      ? 'bg-emerald-100 text-emerald-700'
-                      : 'bg-amber-100 text-amber-700'
-                  }`}>
-                    {post.status}
+                    <span className={`text-eyebrow px-2 py-1 border ${post.status === 'scheduled' ? 'text-sage border-sage/30' : 'text-ink-subtle border-ink/20'}`}>
+                      {post.status}
+                    </span>
                   </div>
                 </div>
-              ))}
+              );
+            })}
+          </div>
+
+          <Link href="/dashboard/calendar" className="btn-ghost w-full justify-center">
+            <span>Open the Publishing Desk</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+
+      <div className="rule-thick"></div>
+
+      {/* FEATURED — Quote / Insight */}
+      <section className="animate-reveal-up opacity-0 delay-700" style={{animationFillMode: 'forwards'}}>
+        <div className="grid grid-cols-12 gap-8">
+          <div className="col-span-12 lg:col-span-4">
+            <div className="section-num mb-4">04 · Signal</div>
+            <div className="text-eyebrow text-ink-subtle">This week&apos;s biggest insight</div>
+          </div>
+          <div className="col-span-12 lg:col-span-8">
+            <blockquote className="text-4xl font-light leading-tight tracking-tight">
+              &ldquo;Educational content is performing <span className="font-bold text-terracotta">3× better</span> than promotional posts this week. Your audience wants to learn.&rdquo;
+            </blockquote>
+            <div className="mt-6 flex items-center gap-4">
+              <div className="rule flex-1 max-w-16"></div>
+              <div className="text-eyebrow text-ink-subtle">The KANZA Signal Room · 12 min ago</div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Quick access grid */}
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-4 animate-reveal-up opacity-0 delay-800" style={{animationFillMode: 'forwards'}}>
+        <Link href="/dashboard/content-generator" className="data-card group">
+          <Sparkles className="w-8 h-8 mb-6 text-terracotta group-hover:scale-110 transition-transform" />
+          <div className="text-xl font-black tracking-tight mb-2">Draft with AI</div>
+          <div className="text-sm text-ink-muted font-light mb-6">Generate weekly content in one click.</div>
+          <div className="flex items-center gap-2 text-eyebrow text-terracotta">
+            Begin <ArrowUpRight className="w-3 h-3" />
+          </div>
+        </Link>
+        <Link href="/dashboard/analytics" className="data-card group">
+          <TrendingUp className="w-8 h-8 mb-6 text-terracotta group-hover:scale-110 transition-transform" />
+          <div className="text-xl font-black tracking-tight mb-2">Read the signals</div>
+          <div className="text-sm text-ink-muted font-light mb-6">See what actually performs.</div>
+          <div className="flex items-center gap-2 text-eyebrow text-terracotta">
+            Open <ArrowUpRight className="w-3 h-3" />
+          </div>
+        </Link>
+        <Link href="/dashboard/approvals" className="data-card group">
+          <Zap className="w-8 h-8 mb-6 text-terracotta group-hover:scale-110 transition-transform" />
+          <div className="text-xl font-black tracking-tight mb-2">Approve & ship</div>
+          <div className="text-sm text-ink-muted font-light mb-6">Give the final green light.</div>
+          <div className="flex items-center gap-2 text-eyebrow text-terracotta">
+            Review <ArrowUpRight className="w-3 h-3" />
+          </div>
+        </Link>
+      </section>
     </div>
   );
 }
 
-function StatCard({ icon, label, value, trend, trendUp, color }: {
-  icon: React.ReactNode;
+function StatBlock({ num, label, value, unit, trend, delay, featured }: {
+  num: string;
   label: string;
   value: string;
+  unit: string;
   trend: string;
-  trendUp?: boolean;
-  color: string;
+  delay: number;
+  featured?: boolean;
 }) {
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-5 card-hover">
-      <div className="flex items-center gap-3 mb-4">
-        <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${color} text-white flex items-center justify-center`}>
-          {icon}
-        </div>
+    <div
+      className={`col-span-12 md:col-span-6 lg:col-span-3 p-8 border-r border-b border-ink/10 relative group animate-counter opacity-0 ${featured ? 'bg-ink text-ivory' : 'hover:bg-ivory-warm'} transition-colors duration-500`}
+      style={{animationDelay: `${delay}s`, animationFillMode: 'forwards'}}
+    >
+      <div className={`text-eyebrow mb-6 ${featured ? 'text-terracotta' : 'text-terracotta'}`}>{num} / {label}</div>
+      <div className="flex items-baseline gap-2">
+        <div className={`text-7xl font-black tracking-tighter ${featured ? '' : 'group-hover:text-terracotta transition-colors duration-500'}`}>{value}</div>
+        <div className={`text-2xl font-light ${featured ? 'text-ivory/60' : 'text-ink-subtle'}`}>{unit}</div>
       </div>
-      <div className="text-3xl font-bold tracking-tight">{value}</div>
-      <div className="text-sm text-slate-500 mt-1">{label}</div>
-      <div className={`text-xs mt-2 font-medium ${trendUp ? 'text-emerald-600' : 'text-slate-500'}`}>
-        {trend}
+      <div className="mt-6 flex items-center gap-2">
+        <div className={`text-eyebrow ${featured ? 'text-terracotta' : 'text-sage'}`}>{trend}</div>
+        <div className={`rule flex-1 ${featured ? '!bg-ivory !opacity-20' : ''}`}></div>
       </div>
     </div>
   );

@@ -2,19 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --bg: #ffffff;
-  --fg: #0f172a;
-  --muted: #64748b;
-  --border: #e2e8f0;
-  --card: #ffffff;
-  --primary: #7c3aed;
+  --ink: #0F0F0F;
+  --ink-soft: #1F1F1F;
+  --ink-muted: #404040;
+  --ink-subtle: #78716C;
+  --ivory: #FAF6EE;
+  --ivory-warm: #F5EFE1;
+  --ivory-deep: #EDE4D0;
+  --terracotta: #A93E1E;
+  --sage: #4A7C4E;
+  --line: rgba(15, 15, 15, 0.08);
 }
 
 * {
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
@@ -22,69 +28,278 @@ html {
 }
 
 body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: 'Poppins', -apple-system, sans-serif;
+  font-weight: 400;
 }
 
-[dir="rtl"] body {
-  font-family: 'Tajawal', -apple-system, sans-serif;
+/* ===== Typography ===== */
+.text-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
 }
 
-.gradient-bg {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+.text-huge {
+  font-size: clamp(4rem, 10vw, 9rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.text-mega {
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
 }
 
-.glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+/* ===== Editorial patterns ===== */
+.section-num {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--terracotta);
 }
 
-.card-hover {
-  transition: all 0.3s ease;
+.rule {
+  height: 1px;
+  background: var(--ink);
+  opacity: 0.1;
 }
 
-.card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
+.rule-thick {
+  height: 2px;
+  background: var(--ink);
 }
 
-@keyframes fadeIn {
+/* ===== Editorial container ===== */
+.editorial-frame {
+  border: 1px solid var(--line);
+  background: white;
+}
+
+.editorial-frame-alt {
+  background: var(--ivory-warm);
+  border: 1px solid var(--line);
+}
+
+/* ===== Animations ===== */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(40px); clip-path: inset(100% 0 0 0); }
+  to { opacity: 1; transform: translateY(0); clip-path: inset(0 0 0 0); }
+}
+
+@keyframes reveal-left {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes reveal-right {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+@keyframes float-rotate {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(15px, -15px) rotate(2deg); }
+  66% { transform: translate(-10px, 10px) rotate(-1deg); }
+}
+
+@keyframes counter {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
 }
 
-@keyframes pulse-slow {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+@keyframes ping-slow {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.3; }
 }
 
-.pulse-slow {
-  animation: pulse-slow 3s ease-in-out infinite;
+@keyframes reveal-in-bar {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
-.scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+.animate-reveal-up { animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-reveal-left { animation: reveal-left 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-reveal-right { animation: reveal-right 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-scale-in { animation: scale-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float-rotate { animation: float-rotate 10s ease-in-out infinite; }
+.animate-counter { animation: counter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-ping-slow { animation: ping-slow 2s ease-in-out infinite; }
+.animate-marquee { animation: marquee 30s linear infinite; }
+
+/* ===== Utilities ===== */
+.opacity-0 { opacity: 0; }
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+.delay-1000 { animation-delay: 1s; }
+
+/* ===== Editorial link ===== */
+.link-editorial {
+  position: relative;
+  display: inline-block;
+  transition: color 0.3s;
 }
 
-.scrollbar-thin::-webkit-scrollbar-track {
+.link-editorial::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform-origin: right;
+  transform: scaleX(1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-editorial:hover::after {
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: link-underline 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+@keyframes link-underline {
+  from { transform: scaleX(0); transform-origin: left; }
+  to { transform: scaleX(1); transform-origin: left; }
+}
+
+/* ===== Buttons ===== */
+.btn-editorial {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: var(--ink);
+  color: var(--ivory);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-editorial::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--terracotta);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-editorial > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-editorial:hover::before {
+  transform: translateY(0);
+}
+
+.btn-editorial:hover {
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
   background: transparent;
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid var(--ink);
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 3px;
+.btn-ghost:hover {
+  background: var(--ink);
+  color: var(--ivory);
+}
+
+/* ===== Data card ===== */
+.data-card {
+  position: relative;
+  padding: 32px;
+  background: white;
+  border: 1px solid var(--line);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.data-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--terracotta);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.data-card:hover::before {
+  width: 100%;
+}
+
+.data-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px -20px rgba(15, 15, 15, 0.15);
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ivory);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(15, 15, 15, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink);
+}
+
+::selection {
+  background: var(--terracotta);
+  color: var(--ivory);
 }

@@ -5,7 +5,7 @@ export const mockProducts = [
     nameAr: 'عطر عود الورد الفاخر',
     price: '450 SAR',
     category: 'Perfumes',
-    image: '🌹',
+    image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&auto=format&fit=crop&q=80',
     description: 'Premium blend of rose and oud',
   },
   {
@@ -14,7 +14,7 @@ export const mockProducts = [
     nameAr: 'مجموعة المسك المميزة',
     price: '320 SAR',
     category: 'Perfumes',
-    image: '💎',
+    image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=400&auto=format&fit=crop&q=80',
     description: 'Signature musk fragrance',
   },
   {
@@ -23,7 +23,7 @@ export const mockProducts = [
     nameAr: 'زيت العنبر الذهبي',
     price: '180 SAR',
     category: 'Body Care',
-    image: '✨',
+    image: 'https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=400&auto=format&fit=crop&q=80',
     description: 'Luxurious body oil with amber',
   },
   {
@@ -32,7 +32,7 @@ export const mockProducts = [
     nameAr: 'بخور فاخر',
     price: '220 SAR',
     category: 'Home Fragrance',
-    image: '🔥',
+    image: 'https://images.unsplash.com/photo-1615375329788-3c521e1e8f28?w=400&auto=format&fit=crop&q=80',
     description: 'Premium bakhoor for special occasions',
   },
 ];
@@ -51,7 +51,7 @@ export const mockContentIdeas = [
     predictedReach: '12.5K',
     suggestedTime: 'Tomorrow, 8:00 PM',
     status: 'pending',
-    image: '🌹',
+    image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&auto=format&fit=crop&q=80',
   },
   {
     id: 2,
@@ -66,7 +66,7 @@ export const mockContentIdeas = [
     predictedReach: '18.2K',
     suggestedTime: 'Thursday, 9:30 PM',
     status: 'pending',
-    image: '💫',
+    image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
   },
   {
     id: 3,
@@ -81,7 +81,7 @@ export const mockContentIdeas = [
     predictedReach: '9.8K',
     suggestedTime: 'Saturday, 11:00 AM',
     status: 'approved',
-    image: '🎨',
+    image: 'https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=600&auto=format&fit=crop&q=80',
   },
   {
     id: 4,
@@ -96,7 +96,7 @@ export const mockContentIdeas = [
     predictedReach: '25.4K',
     suggestedTime: 'Monday, 6:00 PM',
     status: 'pending',
-    image: '🌙',
+    image: 'https://images.unsplash.com/photo-1585687433492-9fac2a89b98d?w=600&auto=format&fit=crop&q=80',
   },
   {
     id: 5,
@@ -111,7 +111,7 @@ export const mockContentIdeas = [
     predictedReach: '7.3K',
     suggestedTime: 'Wednesday, 3:00 PM',
     status: 'pending',
-    image: '⭐',
+    image: 'https://images.unsplash.com/photo-1616604426481-fa5d431e2c9d?w=600&auto=format&fit=crop&q=80',
   },
   {
     id: 6,
@@ -126,7 +126,7 @@ export const mockContentIdeas = [
     predictedReach: '32.1K',
     suggestedTime: 'Friday, 7:00 PM',
     status: 'pending',
-    image: '🔥',
+    image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
   },
 ];
 
@@ -168,7 +168,7 @@ export const mockViralPosts = [
     id: 1,
     platform: 'Instagram',
     type: 'Reel',
-    thumbnail: '🎬',
+    thumbnail: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=200&auto=format&fit=crop&q=80',
     engagement: '156K',
     likes: '24.5K',
     comments: '1.8K',
@@ -180,7 +180,7 @@ export const mockViralPosts = [
     id: 2,
     platform: 'TikTok',
     type: 'Tutorial',
-    thumbnail: '📚',
+    thumbnail: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=200&auto=format&fit=crop&q=80',
     engagement: '98K',
     likes: '18.2K',
     comments: '947',
@@ -192,7 +192,7 @@ export const mockViralPosts = [
     id: 3,
     platform: 'Instagram',
     type: 'Story',
-    thumbnail: '⭐',
+    thumbnail: 'https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=200&auto=format&fit=crop&q=80',
     engagement: '87K',
     likes: '14.7K',
     comments: '623',
@@ -204,7 +204,7 @@ export const mockViralPosts = [
     id: 4,
     platform: 'Twitter',
     type: 'Thread',
-    thumbnail: '📝',
+    thumbnail: 'https://images.unsplash.com/photo-1585687433492-9fac2a89b98d?w=200&auto=format&fit=crop&q=80',
     engagement: '45K',
     likes: '8.4K',
     comments: '412',
@@ -237,8 +237,10 @@ export const mockStats = {
 };
 
 export const mockPlatforms = [
-  { name: 'Instagram', icon: '📷', color: 'from-pink-500 to-purple-500', posts: 87, growth: '+12%' },
-  { name: 'TikTok', icon: '🎵', color: 'from-black to-pink-500', posts: 42, growth: '+28%' },
-  { name: 'Twitter', icon: '🐦', color: 'from-sky-400 to-blue-500', posts: 65, growth: '+8%' },
-  { name: 'Snapchat', icon: '👻', color: 'from-yellow-400 to-yellow-500', posts: 34, growth: '+15%' },
+  { name: 'Instagram', posts: 87, growth: '+12%' },
+  { name: 'TikTok', posts: 42, growth: '+28%' },
+  { name: 'Twitter', posts: 65, growth: '+8%' },
+  { name: 'Snapchat', posts: 34, growth: '+15%' },
 ];
+
+export const heroImage = 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=1200&auto=format&fit=crop&q=80';

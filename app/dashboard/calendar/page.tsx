@@ -1,25 +1,18 @@
 import { mockScheduledPosts } from '@/lib/mock-data';
+import { PlatformIconMap } from '@/components/PlatformIcons';
 import { Plus, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const platformColors: Record<string, string> = {
-  Instagram: 'from-pink-500 to-purple-500 border-pink-200',
-  TikTok: 'from-slate-900 to-pink-500 border-slate-300',
-  Twitter: 'from-sky-400 to-blue-500 border-sky-200',
-  Snapchat: 'from-yellow-400 to-yellow-500 border-yellow-200',
-};
-
-const platformIcons: Record<string, string> = {
-  Instagram: '📷',
-  TikTok: '🎵',
-  Twitter: '🐦',
-  Snapchat: '👻',
+const platformStyle: Record<string, string> = {
+  Instagram: 'bg-terracotta text-ivory',
+  TikTok: 'bg-ink text-ivory',
+  Twitter: 'bg-sage text-ivory',
+  Snapchat: 'bg-ink-muted text-ivory',
 };
 
 export default function CalendarPage() {
   const days = Array.from({ length: 35 }, (_, i) => i - 5);
-  const today = 18; // July 18
+  const today = 18;
 
-  // Map posts to days
   const postsByDay: Record<number, typeof mockScheduledPosts> = {};
   mockScheduledPosts.forEach(post => {
     const day = parseInt(post.date.split('-')[2]);
@@ -28,60 +21,73 @@ export default function CalendarPage() {
   });
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Content Calendar</h1>
-          <p className="text-slate-500 mt-1">Plan, schedule, and publish across all platforms.</p>
+    <div className="space-y-16">
+      {/* Header */}
+      <header className="animate-reveal-up opacity-0" style={{animationFillMode: 'forwards'}}>
+        <div className="flex items-center gap-4 mb-6">
+          <span className="section-num">Section 04 · Publishing Desk</span>
+          <div className="rule flex-1"></div>
         </div>
-        <button className="px-4 py-2.5 gradient-bg text-white rounded-lg font-medium flex items-center gap-2 hover:opacity-90">
-          <Plus className="w-4 h-4" />
-          Schedule Post
-        </button>
-      </div>
+        <div className="flex items-end justify-between">
+          <h1 className="text-huge">
+            The <span className="italic font-light text-terracotta">publishing</span> desk.
+          </h1>
+          <button className="btn-editorial group">
+            <Plus className="w-4 h-4" />
+            <span>Schedule Post</span>
+          </button>
+        </div>
+      </header>
 
       {/* Calendar */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6">
-        {/* Calendar header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2">
-            <button className="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center hover:bg-slate-200">
+      <section className="editorial-frame p-8 animate-reveal-up opacity-0 delay-200" style={{animationFillMode: 'forwards'}}>
+        <div className="flex items-center justify-between mb-8 pb-6 border-b border-ink/10">
+          <div className="flex items-center gap-4">
+            <button className="w-10 h-10 border border-ink/20 hover:bg-ink hover:text-ivory hover:border-ink transition-all flex items-center justify-center">
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <h2 className="text-xl font-semibold px-4">July 2026</h2>
-            <button className="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center hover:bg-slate-200">
+            <div>
+              <div className="text-eyebrow text-terracotta">Issue 07</div>
+              <h2 className="text-3xl font-black tracking-tight">July, 2026</h2>
+            </div>
+            <button className="w-10 h-10 border border-ink/20 hover:bg-ink hover:text-ivory hover:border-ink transition-all flex items-center justify-center">
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
 
-          <div className="flex gap-2 text-xs">
-            <button className="px-3 py-1.5 rounded-full bg-slate-900 text-white font-medium">Month</button>
-            <button className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 font-medium">Week</button>
-            <button className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 font-medium">Day</button>
+          <div className="flex gap-0 border border-ink/20">
+            {['MONTH', 'WEEK', 'DAY'].map((view, i) => (
+              <button key={view} className={`px-4 py-2 text-eyebrow ${i === 0 ? 'bg-ink text-ivory' : 'text-ink-subtle hover:bg-ivory-warm'} transition-colors`}>
+                {view}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Legend */}
-        <div className="flex items-center gap-4 mb-4 text-xs">
-          {Object.keys(platformIcons).map(platform => (
-            <div key={platform} className="flex items-center gap-1.5">
-              <span>{platformIcons[platform]}</span>
-              <span className="text-slate-600">{platform}</span>
-            </div>
-          ))}
+        {/* Legend with SVG icons */}
+        <div className="flex items-center gap-6 mb-6 text-eyebrow">
+          {Object.keys(platformStyle).map((platform) => {
+            const Icon = PlatformIconMap[platform];
+            return (
+              <div key={platform} className="flex items-center gap-2">
+                <Icon size={14} className="text-ink" />
+                <span className="text-ink-muted">{platform}</span>
+              </div>
+            );
+          })}
         </div>
 
         {/* Weekday headers */}
-        <div className="grid grid-cols-7 gap-2 mb-2">
-          {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
-            <div key={day} className="text-center text-xs font-medium text-slate-500 py-2">
+        <div className="grid grid-cols-7 gap-0 mb-2 border border-ink/10">
+          {['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'].map((day, i) => (
+            <div key={day} className={`text-center text-eyebrow py-3 ${i !== 6 ? 'border-r' : ''} border-ink/10 bg-ivory-warm`}>
               {day}
             </div>
           ))}
         </div>
 
         {/* Calendar grid */}
-        <div className="grid grid-cols-7 gap-2">
+        <div className="grid grid-cols-7 gap-0 border-l border-t border-ink/10">
           {days.map((day, i) => {
             const isCurrentMonth = day > 0 && day <= 31;
             const isToday = day === today;
@@ -90,67 +96,75 @@ export default function CalendarPage() {
             return (
               <div
                 key={i}
-                className={`min-h-[100px] p-2 rounded-lg border ${
+                className={`min-h-[110px] p-2 border-r border-b border-ink/10 transition-all animate-reveal-up opacity-0 ${
                   isToday
-                    ? 'border-primary-500 bg-primary-50'
+                    ? 'bg-terracotta text-ivory'
                     : isCurrentMonth
-                    ? 'border-slate-100 hover:border-slate-300 bg-white'
-                    : 'border-slate-50 bg-slate-50/50'
-                } transition`}
+                    ? 'bg-white hover:bg-ivory-warm cursor-pointer'
+                    : 'bg-ivory'
+                }`}
+                style={{animationDelay: `${0.3 + i * 0.008}s`, animationFillMode: 'forwards'}}
               >
-                <div className={`text-xs font-semibold mb-2 ${
-                  isToday ? 'text-primary-700' : isCurrentMonth ? 'text-slate-700' : 'text-slate-400'
+                <div className={`text-eyebrow mb-2 ${
+                  isToday ? 'text-ivory' : isCurrentMonth ? 'text-ink' : 'text-ink-subtle/40'
                 }`}>
-                  {isCurrentMonth ? day : ''}
+                  {isCurrentMonth ? String(day).padStart(2, '0') : ''}
                 </div>
                 <div className="space-y-1">
-                  {posts.map((post, j) => (
-                    <div
-                      key={j}
-                      className={`text-[10px] px-1.5 py-1 rounded bg-gradient-to-r ${platformColors[post.platform]} text-white truncate flex items-center gap-1`}
-                    >
-                      <span>{platformIcons[post.platform]}</span>
-                      <span className="truncate">{post.time}</span>
-                    </div>
-                  ))}
+                  {posts.map((post, j) => {
+                    const Icon = PlatformIconMap[post.platform];
+                    return (
+                      <div
+                        key={j}
+                        className={`text-[10px] px-1.5 py-1 ${isToday ? 'bg-ivory text-terracotta' : platformStyle[post.platform]} font-bold flex items-center justify-between gap-1 hover:scale-105 transition-transform cursor-pointer`}
+                      >
+                        <Icon size={10} />
+                        <span className="font-mono">{post.time}</span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             );
           })}
         </div>
-      </div>
+      </section>
 
-      {/* Scheduled list */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6">
-        <h2 className="text-lg font-semibold mb-4">This week&apos;s schedule</h2>
-        <div className="space-y-3">
-          {mockScheduledPosts.map((post, i) => (
-            <div key={i} className="flex items-center gap-4 p-3 rounded-xl hover:bg-slate-50 transition">
-              <div className="text-2xl">{platformIcons[post.platform]}</div>
-              <div className="flex-1 min-w-0">
-                <div className="font-medium text-sm">{post.title}</div>
-                <div className="text-xs text-slate-500 mt-0.5">
-                  {new Date(post.date).toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    month: 'short',
-                    day: 'numeric'
-                  })} at {post.time}
-                </div>
-              </div>
-              <div className="text-xs font-medium text-slate-600 px-3 py-1 rounded-full bg-slate-100">
-                {post.platform}
-              </div>
-              <div className={`text-xs font-medium px-3 py-1 rounded-full ${
-                post.status === 'scheduled'
-                  ? 'bg-emerald-100 text-emerald-700'
-                  : 'bg-amber-100 text-amber-700'
-              }`}>
-                {post.status}
-              </div>
-            </div>
-          ))}
+      {/* Editorial schedule list */}
+      <section className="animate-reveal-up opacity-0 delay-300" style={{animationFillMode: 'forwards'}}>
+        <div className="mb-8">
+          <div className="section-num mb-2">This week&apos;s issue</div>
+          <h2 className="text-4xl font-black tracking-tight">Going out.</h2>
         </div>
-      </div>
+
+        <div className="editorial-frame divide-y divide-ink/10">
+          {mockScheduledPosts.map((post, i) => {
+            const Icon = PlatformIconMap[post.platform];
+            return (
+              <div
+                key={i}
+                className="flex items-center gap-6 p-6 hover:bg-ivory-warm transition-colors group cursor-pointer animate-reveal-up opacity-0"
+                style={{animationDelay: `${0.4 + i * 0.06}s`, animationFillMode: 'forwards'}}
+              >
+                <div className={`w-12 h-12 flex items-center justify-center ${platformStyle[post.platform]}`}>
+                  <Icon size={20} />
+                </div>
+                <div className="w-24">
+                  <div className="text-2xl font-black">{post.time}</div>
+                  <div className="text-eyebrow text-ink-subtle">{new Date(post.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</div>
+                </div>
+                <div className="flex-1 group-hover:translate-x-2 transition-transform duration-500">
+                  <div className="text-lg font-bold">{post.title}</div>
+                  <div className="text-eyebrow text-ink-subtle mt-1">{post.platform}</div>
+                </div>
+                <span className={`text-eyebrow px-3 py-1 border ${post.status === 'scheduled' ? 'text-sage border-sage/30' : 'text-ink-subtle border-ink/20'}`}>
+                  {post.status}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </section>
     </div>
   );
 }

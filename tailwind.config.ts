@@ -8,27 +8,37 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        arabic: ['Tajawal', 'Cairo', 'sans-serif'],
+        sans: ['Poppins', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
       },
       colors: {
-        primary: {
-          50: '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8b5cf6',
-          600: '#7c3aed',
-          700: '#6d28d9',
-          800: '#5b21b6',
-          900: '#4c1d95',
+        // Strict 4-color palette
+        ink: {
+          DEFAULT: '#0F0F0F',
+          soft: '#1F1F1F',
+          muted: '#404040',
+          subtle: '#78716C',
         },
-        accent: {
-          400: '#f472b6',
-          500: '#ec4899',
-          600: '#db2777',
+        ivory: {
+          DEFAULT: '#FAF6EE',
+          warm: '#F5EFE1',
+          deep: '#EDE4D0',
         },
+        terracotta: {
+          DEFAULT: '#A93E1E',
+          soft: '#C4522E',
+          light: '#F5E4DD',
+        },
+        sage: {
+          DEFAULT: '#4A7C4E',
+          light: '#DCEEE0',
+        },
+      },
+      fontSize: {
+        'display': ['clamp(3.5rem, 9vw, 8rem)', { lineHeight: '0.9', letterSpacing: '-0.04em' }],
+      },
+      boxShadow: {
+        'editorial': '0 1px 0 rgba(15, 15, 15, 0.08), 0 20px 40px -20px rgba(15, 15, 15, 0.1)',
+        'editorial-lg': '0 1px 0 rgba(15, 15, 15, 0.08), 0 40px 80px -30px rgba(15, 15, 15, 0.2)',
       },
     },
   },
